@@ -19,4 +19,14 @@
 	|	|_3.4.2 'X' Marks the Spot: find X program. NEED ENHANCE ASM LANG.
 	|	|	The fourth way is not correct for me. Why?
 	|	|	|_Question 1: The second is correct, the other are wrong.
-	|	|_3.4.3 Defining Strings
+	|	|_3.4.3 Defining Strings: no example, not understand...
+	|	|_3.4.4 Using the Stack: bp -- stack bottom pointer; sp -- stack pointer
+	|	|	|_Question 2: I don't know the address
+	|	|_3.4.5 Control Structures: cmp -> je,jne,jl,jle,jg,jge
+	|	|	|_Question 3: easy
+	|	|_3.4.6 Calling Functions: function -> jmp + jmp back -> call + ret; pusha and popa to save and restore the registers
+	|	|_3.4.7 Include Files: %include "xxx.asm"
+	|	|_3.4.8 Putting it all Together: the whole code including the feature above: interesting. I tried half an hour or maybe longer
+	|		to finish the code. Be carefull that the "[bx]" and add "bx, 1".
+	|		And if i use pusha and popa in the function. The program will just output hello world but not goodbye, why?
+	|		And don't forget the "mov ah, 0x0e" in the function, without it, qemu can't figure it out as an bootable disk, why?
