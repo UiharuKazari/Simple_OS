@@ -1,0 +1,22 @@
+1. Introduction
+2. Computer Architecture and the Boot Process
+	|_2.1 The Boot Process: BIOS, boot sector, magic number
+	|_2.2 BIOS, Boot Blocks, and the Magic Number: use KVM, qemu raw disk, xxd, hexdump to do the example, interesting
+	|_2.3 CPU Emulation
+	|	|_2.3.1 Bochs: A x86 CPU Emulator
+	|	|_2.3.2 QEmu
+	|_2.4 The Usefulness of Hexadecimal Notation
+3. Boot Sector Programming (in 16-bit Real Mode)
+	|_3.1 Boot Sector Re-visited: Another way to create boot sector(the raw disk created by qemu-img and xdd before) -- nasm; 
+	|	besides using kvm vm, we can use qemu-system-i386 + (bin file/raw disk) to run the code;
+	|_3.2 16-bit Real Mode
+	|_3.3 Erm, Hello?
+	|	|_3.3.1 Interrupts
+	|	|_3.3.2 CPU Registers
+	|	|_3.3.3 Putting it all Together: use int 0x10 to print something when boot
+	|_3.4 Hello, World!
+	|	|_3.4.1 Memory, Address, and Labels: boot sector location in memory -- 0x7c00
+	|	|_3.4.2 'X' Marks the Spot: find X program. NEED ENHANCE ASM LANG.
+	|	|	The fourth way is not correct for me. Why?
+	|	|	|_Question 1: The second is correct, the other are wrong.
+	|	|_3.4.3 Defining Strings
