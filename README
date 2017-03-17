@@ -30,3 +30,7 @@
 	|		to finish the code. Be carefull that the "[bx]" and add "bx, 1".
 	|		And if i use pusha and popa in the function. The program will just output hello world but not goodbye, why?
 	|		And don't forget the "mov ah, 0x0e" in the function, without it, qemu can't figure it out as an bootable disk, why?
+	|_3.5 Nurse, Fetch me my Steth-o-scope
+	|	|_3.5.1 Question 5 (Advanced): I don't know how to write print_hex yet.
+	|	|	But If I do nothing, "HEX_OUT" will print twice sometimes. Why?
+	|	|	After all day hard work, I wrote a ugly print_hex, and almost mad. NEED LEARN BASIC ASM.
