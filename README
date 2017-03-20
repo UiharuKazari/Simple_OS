@@ -34,3 +34,11 @@
 	|	|_3.5.1 Question 5 (Advanced): I don't know how to write print_hex yet.
 	|	|	But If I do nothing, "HEX_OUT" will print twice sometimes. Why?
 	|	|	After all day hard work, I wrote a ugly print_hex, and almost mad. NEED LEARN BASIC ASM.
+	|_3.6 Reading the Disk
+	|	|_3.6.1 Extended Memory Access Using Segments
+	|	|	|_Segment register: cs,ds(data),ss(stack),es
+	|	|	|_Find sth interesting, an 16-bit real mode OS: https://github.com/appusajeev/os-dev-16
+	|	|		|_https://appusajeev.wordpress.com/2011/01/27/writing-a-16-bit-real-mode-os-nasm/
+	|	|_3.6.2 How Disk Drive Work: cylinder, head, sector
+	|	|_3.6.3 Using BIOS to Read the Disk: int 0x13 function
+	|	|_3.6.4 Putting it all Together: I run the example, and got disk error!...
