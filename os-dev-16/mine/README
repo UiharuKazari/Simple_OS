@@ -1,0 +1,7 @@
+PURPOSE: Write an OS like the example, an OS in CPU 16bit mode.
+FUNCTIONS：
+1. can boot, show "Booting Successful..." after boot
+	a. clear the screen first
+2. show "Press any key to continue !" 
+3. press any key -> show "Welcome ! Type help or about to know more"
+	show ">>" + cursor -> waiting for input
