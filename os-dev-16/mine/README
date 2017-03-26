@@ -5,3 +5,9 @@ FUNCTIONS：
 2. show "Press any key to continue !" 
 3. press any key -> show "Welcome ! Type help or about to know more"
 	show ">>" + cursor -> waiting for input
+4. input -> show the char back to screen -> if meet Enter , stop -> save the char in a word
+	be careful if meet special key, like 'backspace'
+5. cmp the word with the given selection -> if match, do the planed thing, if not, show invalid.
+
+SKILLS:
+1. if an function need no arguments, we can use pusha/popa; if an function need argument saved in bx, and in the executing process changes ax, we should push/pop ax
