@@ -32,6 +32,12 @@ call read_string
 ;mov al, 'S'
 ;int 0x10
 
+;mov bx, STH
+;call print_string
+
+mov bx, $
+call print_hex16
+
 jmp $
 
 %include "print_string.asm"
@@ -44,6 +50,7 @@ jmp $
 BOOT_MSG:
 ;	db 'Booting Successful..', 0
 	db 'B..', 0
+
 PRESS_MSG:
 ;	db 'Press any key to continue !', 0
 	db 'P !', 0
@@ -71,3 +78,4 @@ INPUT: resb 10		;TODO warning
 times 510-($-$$) db 0
 
 dw 0xaa55
+

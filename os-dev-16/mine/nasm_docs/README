@@ -1,0 +1,76 @@
+Now I met several problems. My asm is pool. So I plan to read the nasm docs from offical site. 
+-- http://www.nasm.us/xdoc/2.12.02/html/nasmdoc0.html
+
+I need some skills:
+1. how to jump to an exactly address
+2. all reg function
+3. why I read something after 0xaa55, but it doesn't work -- maybe need 16 bit read mode more info
+4. 16 bit mode contain how much memory address
+5. what is section in asm (.data, ...)
+
+NASM
+|_Chapter01: Introdunction
+|	|_1.1 What Is NASM? (netwide assembler)
+|	|	|_1.1.1 Why yet another assembler? nasm > a86,gas,as86,masm,tasm...
+|	|	|_1.1.2 License Conditions
+|	|_1.2 Contact Information (email list)	
+|	|_1.3 Installation (SKIP)
+|_Chapter02: Running NASM
+|	|_2.1 NASM Command-Line Syntax
+|	|_2.2 Quick Start for MASM Users (SKIP)
+|_Chapter03: The NASM LANGUAGE
+|	|_3.1 Layout of a NASM Source Line
+|	|	|_do not care colon after lable
+|	|	|_valid lable:letters+numbers+'_,$,#,@,~,.,?' , letters '.'(special meaning in section 3.9)  '_' '?' can be first char
+|	|	|_$eax to be read as an identifier and not the register
+|	|	|_ es mov [bx], ax == mov [es:bx], ax	
+|	|	|_ ...
+|	|_3.2 Pseudo-Instrunctions
+|	|	|_3.2.1 'DB' and Friends: Declaring Initialized Data
+|	|	|	|_ db,dw,dd,dq,dt,do,dy,dz
+|	|	|_3.2.2 'RESB' and Friends: Declaring Uninitialized Data
+|	|	|	|_ resb,resw,resd,resq,rest,reso,resy,resz -- BSS section?
+|	|	|_3.2.3 'INCBIN': Including Extenal Binary File
+|	|	|_3.2.4 'EQU': Defining Constants -- not quite understand, for calulate the string's length?
+|	|	|_3.2.5 'TIMES': Repeating Instrunctions or Data
+|	|_3.3 Effective Address: [bx] [HELLO_MSG] [byte ax+offset](byte,word,dword,nosplit)
+|	|	|_[eax*2] -> nasm -> [eax+eax] , but [nosplit eax*2] -> nasm -> [eax*2] (not quite understand the difference)
+|	|	|_'REL' keyword in 64 bit mode produce RIP-relative address, while 'ABS' overrides it
+|	|	|_ the last two paragraphs can't understand
+|	|_3.4 Constants - numeric,char,string,floating-point
+|	|	|_3.4.1 Numeric Constants
+|	|	|	|_suffix: h,x,d,t,q,o,b,y
+|	|	|	|_prefix: 0x,$,0h,0d,0t,0o,0q,0b,0y (no 0 but in C it means octal)
+|	|	|	|_ '_' to break up long strings, like 0b1100_0011
+|	|	|_3.4.2 Charactor Strings
+|	|	|	|_ 'sth' "sth" `sth` same, use '\' for special char
+|	|	|_3.4.3 Charactor Constants
+|	|	|	|_ little-endian order: 'abcd' -> 0x64636261
+|	|	|_3.4.4 String Constants
+|	|	|_3.4.5 Unicode Strings: __utf16(le/be)__, __utf32(le/be)__ . le->little-endian(default)
+|	|	|_3.4.6 Floating-Point Constants
+|	|	|_3.4.7 Packed BCD Constants
+|	|_3.5 Expressions
+|	|	|_ $->beginning of a line; $$->beginning of the current section
+|	|	|_3.5.1 |:Bitwise OR Operator
+|	|	|_3.5.2 ^:Bitwise XOR Operator
+|	|	|_3.5.3 &:Bitwise AND Operator
+|	|	|_3.5.4 << and >>:Bit SHIFT Operator
+|	|	|_3.5.5 + and -
+|	|	|_3.5.6 *,/,//,%,%%: / -> unsigned division and // -> signed division, so do % 
+|	|	|_3.5.7 Unary Operators (??)
+|	|_3.6 'SEG' and 'WRT'
+|	|	|_seg: "When writing large 16-bit programs, which must be split into multiple segments, \
+|	|	|	|_it is often necessary to be able to refer to the segment part of the address of a symbol. \
+|	|	|	|_NASM supports the SEG operator to perform this function"
+|	|	|_wrt: "with reference to"
+|	|	|_ (??)
+|	|_3.7 'STRICT': Inhibiting Optimization
+|	|_3.8 Critical Expressions (??)
+|	|_3.9 Local Labels
+|		|_ .loop -> local label, it's associated with the previous non-local label 
+|		|_ so the name can be re-used
+|		|_ and can jmp label.loop
+|		|_ no-local-label: ..@foo
+|		|_ ..label is special
+|_Chapter04: The NASM Prepocessor	
