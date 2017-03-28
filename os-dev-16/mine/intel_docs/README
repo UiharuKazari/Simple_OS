@@ -1,0 +1,40 @@
+https://software.intel.com/en-us/articles/intel-sdm
+
+Volume 1: Basic Architecture
+Volume 2A,2B,2C,2D: Instruction Set Reference
+Volume 3A,3B,3C,3D: System Programming Guide
+
+1.3.1 Bit and Byte Order -- little endian
+
+Highest
+Address
+	32______________24_23____________16_15____________8_7___________0_	<- Bit offset
+	|_________________|________________|_______________|______________28
+	|_________________|________________|_______________|______________24
+	|_________________|________________|_______________|______________20
+	|_________________|________________|_______________|______________16
+	|_________________|________________|_______________|______________12
+	|_________________|________________|_______________|______________8
+	|_________________|________________|_______________|______________4
+	|____Byte_3_______|____Byte_2______|___Byte_1______|__Byte_0______0	Lowest
+										Address	
+									  ^
+									  |
+									Byte Offset
+
+2.1.1 16-bit Processors and Segmentation (1978)
+with segmentation, a 16-bit segment register contains a pointer to a memory segment of up to 64KBytes.
+using four segment registers at a time -> 256KBytes
+20-bit address, a segment register, an additional 16-bit pointer -> 1MByte
+
+3.2 OVERVIEW OF THE BASIC EXECUTION ENVIRONMENT
+Basic program execution registers:
+	32-bit general-purpose register * 8
+	16-bit segment register * 6
+	32-bit EFLAGS register
+	32-bit EIP(instruction pointer) register
+	stack -- Section 6.2
+
+CR0~CR4: 5 control register determine the operating mode of the processor and the characteristics of the currently executing task. -- for 16-bit real mode to protect mode?
+
+STOP AT 3.3
