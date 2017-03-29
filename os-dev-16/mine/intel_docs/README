@@ -1,5 +1,7 @@
 https://software.intel.com/en-us/articles/intel-sdm
 
+8086 programming guide == 16-bit mode guide ?
+
 Volume 1: Basic Architecture
 Volume 2A,2B,2C,2D: Instruction Set Reference
 Volume 3A,3B,3C,3D: System Programming Guide
@@ -37,4 +39,55 @@ Basic program execution registers:
 
 CR0~CR4: 5 control register determine the operating mode of the processor and the characteristics of the currently executing task. -- for 16-bit real mode to protect mode?
 
-STOP AT 3.3
+3.3.1 IA-32 Memory Models
+	Flat memory model: linear address 0~2^32-1 (not in 64-bit mode)
+	Segmented memory model: "far pointer"; purpose: increase reliability
+	Real-address mode memory model: for 8086 (chapter20 "8086 Emulation") ---- it's 16-bit real mode?
+	"figure 3-3. Three Memory Management Models"
+
+3.3.4 Modes of Operation vs. Memory Model
+	real-address mode -> real-address mode memory model
+
+3.4 BASIC PROGRAM EXECUTION REGISTERS
+	General-purpose registers. These eight registers are avalible for storing operands and pointers.
+	Segment registers. These registers hold up to six segment selectors.
+	EFLAGS(program status and control) register. The EFLAGS register report on the status of the program being executed and allows limited (application-program level) control of the processor.
+	EIP(instrunction pointer) register. The EIP register contains a 32-bit pointer to the next instruction to be executed.
+
+3.4.1 General-purpose Registers
+
+	31___________16_15____8_7______0   16-bit   32-bit
+	|______________|___AH__|___AL__|     AX       EAX
+	|______________|___BH__|___BL__|     BX       EBX
+	|______________|___CH__|___CL__|     CX       ECX
+	|______________|___DH__|___DL__|     DX       EDX
+	|______________|_______BP______|              EBP
+	|______________|_______SI______|              ESI
+	|______________|_______DI______|              EDI
+	|______________|_______SP______|              ESP
+
+	               _15_____________0
+	               |_______________|     CS -- code segment
+	               |_______________|     DS -- d
+	               |_______________|     ES -- a
+	               |_______________|     FS -- t  segment
+	               |_______________|     GS -- a
+	               |_______________|     SS -- stack segment
+
+	31_____________________________0   
+	|______________________________|     EFLAGS
+
+	31_____________________________0   
+	|______________________________|     EIP
+
+	"special use"
+
+3.4.3 EFLAGS Register
+	the flag of every bit
+	TSS: task state segment
+
+6.2 STACKS
+	ESP: top of stack pointer
+	EBP: set to point to return intruction pointer
+	push -> towards lesser addresses
+	only one stack is available at a time -> SS

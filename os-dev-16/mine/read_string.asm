@@ -1,5 +1,9 @@
 read_string:
 push ax
+.start_point:
+mov bx, SHELL_HEAD
+call print_string
+
 mov bx, INPUT
 .start_read:
 mov ah, 0x00
@@ -51,42 +55,50 @@ call cmp_string
 cmp al, 0x00
 je .func_echo
 
-;mov bx, INPUT_REG
-;call cmp_string
-;cmp al, 0x00
-;je .func_reg
+mov bx, INPUT_REG
+call cmp_string
+cmp al, 0x00
+je .func_reg
 
-;mov bx, INPUT_VIDMEM
-;call cmp_string
-;cmp al, 0x00
-;je .func_vidmem
+mov bx, INPUT_VIDMEM
+call cmp_string
+cmp al, 0x00
+je .func_vidmem
 
-;mov bx, INPUT_EXIT
-;call cmp_string
-;cmp al, 0x00
-;je .func_exit
+mov bx, INPUT_EXIT
+call cmp_string
+cmp al, 0x00
+je .func_exit
 
-;mov bx, INPUT_ABOUT
-;call cmp_string
-;cmp al, 0x00
-;je .func_about
+mov bx, INPUT_ABOUT
+call cmp_string
+cmp al, 0x00
+je .func_about
 
 mov bx, INVALID_MSG
 call print_string
-jmp .after_invalid
+call endline
+jmp .start_point
 
 .func_help:
+mov bx, OUTPUT_HELP
+call print_string
+jmp .start_point
 .func_echo:
+call echo_function
+jmp .start_point
 .func_reg:
+call show_reg
+jmp .start_point
 .func_vidmem:
+jmp .start_point
 .func_exit:
+int 0x19
 .func_about:
+mov bx, OUTPUT_ABOUT
+call print_string
 
-mov ah, 0x0e
-mov al, 'P'
-int 0x10
-
-.after_invalid:
+jmp .start_point
 
 pop ax
 ret

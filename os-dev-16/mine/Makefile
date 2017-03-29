@@ -2,7 +2,7 @@ ASMFLAG = -f bin
 
 all:boot
 
-boot:boot.asm print_string.asm endline.asm print_hex16.asm read_string.asm print_hex8.asm
+boot:boot.asm print_string.asm endline.asm print_hex16.asm read_string.asm print_hex8.asm echo_function.asm show_reg.asm
 	nasm ${ASMFLAG} boot.asm
 
 run:boot
