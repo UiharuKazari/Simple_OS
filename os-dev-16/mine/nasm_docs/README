@@ -74,3 +74,12 @@ NASM
 |		|_ no-local-label: ..@foo
 |		|_ ..label is special
 |_Chapter04: The NASM Prepocessor	
+
+
+
+|_Chapter07: Output Formats
+|	|_7.1 "bin": Flat-From Binary Output
+|	|	|_for os or bootloader etc. default 16-bit, need [BITS 32/64] if write 32-bit/64-bit os kernel
+|	|	|_7.1.1 "ORG": Binary File Program Origin
+|	|	|	|_bin support 'org' directive: specify the origin address which NASM will assume \
+|	|	|	|_the program begins at when it is loaded into memory

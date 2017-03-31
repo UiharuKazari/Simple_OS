@@ -1,0 +1,69 @@
+NOTE sth. learned from ori os-dev-16
+
+1.
+	[org 0]
+	jmp 0x7c0:start
+	start:
+		...
+
+	A. why we need [org 0x7c00]?
+		"org": refer to <<NASM doc>> 7.1.1
+	
+		a. if I write a simple boot program print string(not use function), [org 0x7c00] work ok but others fail.
+		b. if the program just output a char, that int 0x10 once, no matter [org x] is ok
+		diff the bin file in "a.":
+			1c1
+			< 0000000 12bb b47c 8a0e 3c07 7400 cd07 8310 01c3
+			---
+			> 0000000 12bb b400 8a0e 3c07 7400 cd07 8310 01c3
+		we can find the different instruction
+		
+		but in "b."
+		the bin files are same, and both work ok. And the [org xxxx] directive not transfer to machine code.
+
+		WHY?
+
+		Figure3.4: Typical lower memory layout after boot <<os-dev.pdf>>
+		0x0 ~ 0x400: Interrupt Vector Table (1 KB)
+		0x400 ~ 0x500: BIOS Data Area (256 bytes)
+		0x500 ~ 0x7c00: null?
+		0x7c00 ~ 0x7e00: Loaded Boot Sector (512 bytes)
+		0x7e00 ~ 0x9fc00: Free (638 KB)
+		0x9fc00 ~ 0xA0000: Extended BIOS Data Area (639 KB)
+		0xA0000 ~ 0xC0000: Video Memory (128 KB)
+		0xC0000 ~ 0x100000: BIOS (256 KB)
+		0x100000 ~ ??: Free
+		=> BIOS load boot sector to 0x7c00
+
+		so, even i do not [org 0x7c00], the code should be started at 0x7c00?
+		
+		I GUESS: org is not a cpu instruction, but "sometimes" it will tell nasm to complie the source code to different machine code. "sometimes" when compling, nasm will ignore "org" because it thinks it's not nessesery.	
+
+		Compare "a." and "b.", which code cause the nasm pay attention to "org"?
+		=> NONONO. I COMPARE THE MECHAINE CODE CAREFULLY AND FOUND THAT: 
+		org will not be transfer to any machine code, BUT, it will cause the DATA ADDRESS, so, if you don't use [org 0x7c00], the program can't find the location of "MSG" string.
+		Another proof is: 0x7c00 print "zhangfuxing" , but 0x7c01 print "hangfuxing", miss 'z'
+		REFER TO "nasm_docs/SOURCE_to_MACHINE"
+
+		But if i jmp like others, the print still work wrong.
+		Pay attention to:
+			mov ax,cs
+			mov ds,ax
+			mov es,ax
+		The others set ds=es=cs, so print work
+	END QUESTION A.
+
+	B. jmp 0x7c0:start
+
+	C. cs,ds,es,.....
+		I wrote a program "show_seg_reg.asm", use:
+			[org 0]
+			jmp 0x7c0:start
+			start:
+				...
+		It shows that: at the beginning of this program, cs=0x07c0, ds=es=ss=0x0000
+			
+
+	D. lodsb
+
+	E. qemu dump memory
