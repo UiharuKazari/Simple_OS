@@ -65,5 +65,38 @@ NOTE sth. learned from ori os-dev-16
 			
 
 	D. lodsb
+		load bytes at address DS:SI into al
 
-	E. qemu dump memory
+	E. in function: mov bp, sp ....... mov sp, bp
+		sp: top pointer of stack 
+		mov bp, sp: save sp in bp, when you push or pop, the sp moves and it can't be changed. So we use bp for finding sth in stack.Always use with ss. ss:bp
+		always use stack to transfer function parameters, at the beginning of function:
+		push bp		;save bp
+		mov bp, sp	;now [bp + 2*4]--first parameter, [bp + 3*4]--second parameter
+		...
+		...
+		mov sp, bp
+		pop bp
+		ret		;end
+
+	F. msg db "something",10,13,"something else",10,13,0
+		10:'\n', 13:'\r', these two conjunction -> endline
+		if use 10 only, it shows:
+		something
+		         something else
+		if use 13 only, it show:(overwrite the first line)
+		something else
+
+	F. cpy
+		use: cpy $(dev) bootloader os about vidmem echo help exit reg
+		assert(EXPR) -> abort the program if EXPR is false
+		cpy usage:
+		a. write bootloader to the first 512 bytes of dev
+		b. write filetable
+			filetable: {os-3,about-4,vidmem-5,echo-6,help-7,exit-8,reg-9,}
+		c. write 'os' in sector 3
+		d. 'about' sector 4
+		e. ...
+		f. CAUTION: sector 2 is a copy of sector 1 , except replace the first several bytes with filetable
+
+	G. qemu dump memory
